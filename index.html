@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Umar Barber Shop</title>
+<style>
+body { font-family: Arial; background:#f2f2f2; text-align:center; }
+.box { background:white; padding:20px; margin:20px; border-radius:10px; }
+button { padding:10px 20px; font-size:16px; background:#28a745; color:white; border:none; }
+select,input { padding:10px; margin:10px; width:80%; }
+</style>
+</head>
+
+<body>
+
+<h1>💈 Umar Barber Shop</h1>
+
+<div class="box">
+<h2>Book Your Turn</h2>
+
+<input type="text" id="name" placeholder="Enter Your Name"><br>
+
+<select id="barber">
+<option>Select Barber</option>
+<option>Rashid</option>
+<option>Salman</option>
+<option>Aamir</option>
+<option>Javed</option>
+<option>Imran</option>
+</select><br>
+
+<select>
+<option>Hair Cut - ₹100</option>
+<option>Hair + Beard - ₹150</option>
+<option>Beard - ₹70</option>
+<option>VIP Styling - ₹250</option>
+</select><br>
+
+<button onclick="book()">Get Token</button>
+
+<h3 id="result"></h3>
+</div>
+
+<script>
+let count = localStorage.getItem("token") || 1;
+
+function book(){
+let name = document.getElementById("name").value;
+if(name==""){ alert("Enter Name"); return; }
+
+let token = count++;
+localStorage.setItem("token", count);
+
+document.getElementById("result").innerHTML =
+"✅ Token Number: " + token + "<br>Wait for your turn.";
+}
+</script>
+
+</body>
+                        </html>
