@@ -1,59 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Umar Barber Shop</title>
-<style>
-body { font-family: Arial; background:#f2f2f2; text-align:center; }
-.box { background:white; padding:20px; margin:20px; border-radius:10px; }
-button { padding:10px 20px; font-size:16px; background:#28a745; color:white; border:none; }
-select,input { padding:10px; margin:10px; width:80%; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umar Barber Shop</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial; background:#f0f2f5; text-align:center; padding: 20px; }
+        .box { background:white; padding:25px; border-radius:15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
+        h1 { color: #1a73e8; }
+        input, select { padding:12px; margin:10px 0; width:100%; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        button { padding:15px; width:100%; font-size:18px; background:#25D366; color:white; border:none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #128C7E; }
+        .info { margin-top: 15px; font-size: 14px; color: #555; }
+    </style>
 </head>
-
 <body>
 
-<h1>💈 Umar Barber Shop</h1>
+    <h1>💈 Umar Barber Shop</h1>
 
-<div class="box">
-<h2>Book Your Turn</h2>
+    <div class="box">
+        <h2>Book Your Appointment</h2>
+        
+        <input type="text" id="name" placeholder="Apna Naam Likhein" required>
 
-<input type="text" id="name" placeholder="Enter Your Name"><br>
+        <select id="barber">
+            <option value="">Barber Chunein</option>
+            <option>Rashid</option>
+            <option>Salman</option>
+            <option>Aamir</option>
+            <option>Javed</option>
+            <option>Imran</option>
+        </select>
 
-<select id="barber">
-<option>Select Barber</option>
-<option>Rashid</option>
-<option>Salman</option>
-<option>Aamir</option>
-<option>Javed</option>
-<option>Imran</option>
-</select><br>
+        <select id="service">
+            <option value="">Service Chunein</option>
+            <option>Hair Cut - ₹100</option>
+            <option>Hair + Beard - ₹150</option>
+            <option>Beard - ₹70</option>
+            <option>VIP Styling - ₹250</option>
+        </select>
 
-<select>
-<option>Hair Cut - ₹100</option>
-<option>Hair + Beard - ₹150</option>
-<option>Beard - ₹70</option>
-<option>VIP Styling - ₹250</option>
-</select><br>
+        <input type="time" id="time" required>
 
-<button onclick="book()">Get Token</button>
+        <button onclick="sendToWhatsApp()">Book on WhatsApp ✅</button>
+        
+        <p class="info">Click karte hi aapka WhatsApp khul jayega.</p>
+    </div>
 
-<h3 id="result"></h3>
-</div>
+    <script>
+        function sendToWhatsApp() {
+            let name = document.getElementById("name").value;
+            let barber = document.getElementById("barber").value;
+            let service = document.getElementById("service").value;
+            let time = document.getElementById("time").value;
+            
+            // Yahan apna WhatsApp number dalein (91 ke saath)
+            let myNumber = "918052825636"; 
 
-<script>
-let count = localStorage.getItem("token") || 1;
+            if(name == "" || barber == "" || service == "" || time == "") {
+                alert("Please saari details bharein!");
+                return;
+            }
 
-function book(){
-let name = document.getElementById("name").value;
-if(name==""){ alert("Enter Name"); return; }
+            let message = "Salaam Umar! 💈%0a" +
+                          "Maine appointment book kiya hai:%0a%0a" +
+                          "*Naam:* " + name + "%0a" +
+                          "*Barber:* " + barber + "%0a" +
+                          "*Service:* " + service + "%0a" +
+                          "*Time:* " + time + "%0a%0a" +
+                          "Kya ye time free hai?";
 
-let token = count++;
-localStorage.setItem("token", count);
-
-document.getElementById("result").innerHTML =
-"✅ Token Number: " + token + "<br>Wait for your turn.";
-}
-</script>
+            let url = "https://wa.me/" + myNumber + "?text=" + message;
+            window.open(url, '_blank').focus();
+        }
+    </script>
 
 </body>
-                        </html>
+</html>
